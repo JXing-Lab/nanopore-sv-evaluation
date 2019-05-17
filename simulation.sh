@@ -1,5 +1,9 @@
-NanoSim/src/read_analysis.py -I train.fasta -r ref.fna
+# CHM1
+NanoSim/src/read_analysis.py -I train.fasta -r b38.fna
 
+NanoSim/src/simulator.py linear -r chm1.fna -c training -o nanosim_50 --seed 11 -n 50000000
+
+# RSVSim
 samtools faidx ref.fna chr20 > chr20.fasta
 
 R
