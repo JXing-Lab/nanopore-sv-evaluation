@@ -1,4 +1,5 @@
 # Nanopore comparison
+
 ### Filter unknown chromosomes
 ```
 for f in `find . -name '*.vcf'`; do awk '($1 !~/^$/)&&($1=="chr1"||$1=="chr2"||$1=="chr3"||$1=="chr4"||$1=="chr5"||$1=="chr6"||$1=="chr7"||$1=="chr8"||$1=="chr9"||$1=="chr10"||$1=="chr11"||$1=="chr12"||$1=="chr13"||$1=="chr14"||$1=="chr15"||$1=="chr16"||$1=="chr17"||$1=="chr18"||$1=="chr19"||$1=="chr20"||$1=="chr21"||$1=="chr22"||$1=="chrX"||$1=="chrY"||$1~/^##/)&&($3 !="gap"){print$0}' $f > ${f%vcf}chr.vcf; done
@@ -26,6 +27,11 @@ for f in `find . -name '*.chr.*.bed'`; do bedtools sort -i $f > ${f%bed}sort.bed
 ### Merge overlapping regions
 ```
 for f in `find . -name '*.chr.*.sort.bed'`; do bedtools merge -i $f -c 1 -o count > ${f%bed}merge.bed; done
+```
+
+### Liftover true sets
+```
+liftOver NA12878.sort.bed hg19ToHg38.over.chain NA12878_hg38.sort.bed unmapped.bed
 ```
 
 ### Compare
