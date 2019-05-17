@@ -1,5 +1,5 @@
 # CHM1
-seqtk seq -a train.fastq > train.fasta
+seqtk seq -a nanopore_03262018.fastq > train.fasta
 
 NanoSim/src/read_analysis.py -I train.fasta -r b38.fna
 
