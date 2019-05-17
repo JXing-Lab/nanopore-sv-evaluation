@@ -4,4 +4,18 @@ cat graphmap-nanosv/nanosv.chr.ins.bp.sort.merge.bed graphmap-sniffles/sniffles.
 
 bedtools sort -i cat.del.bed | bedtools merge -c 1 -o count > merged.del.bed
 
+bedtools sort -i cat.ins.bed | bedtools merge -c 1 -d 100 -o count > merged.ins.bed
+
 awk '$4>=2{print}' merged.del.bed > consensus2.del.bed
+awk '$4>=3{print}' merged.del.bed > consensus3.del.bed
+awk '$4>=4{print}' merged.del.bed > consensus4.del.bed
+awk '$4>=5{print}' merged.del.bed > consensus5.del.bed
+awk '$4>=6{print}' merged.del.bed > consensus6.del.bed
+awk '$4>=7{print}' merged.del.bed > consensus7.del.bed
+
+awk '$4>=2{print}' merged.ins.bed > consensus2.ins.bed
+awk '$4>=3{print}' merged.ins.bed > consensus3.ins.bed
+awk '$4>=4{print}' merged.ins.bed > consensus4.ins.bed
+awk '$4>=5{print}' merged.ins.bed > consensus5.ins.bed
+awk '$4>=6{print}' merged.ins.bed > consensus6.ins.bed
+awk '$4>=7{print}' merged.ins.bed > consensus7.ins.bed
