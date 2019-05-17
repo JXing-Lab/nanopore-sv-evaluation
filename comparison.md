@@ -36,23 +36,3 @@ bedtools intersect -f 0.50 -wa -a $CALLSET -b $TRUESET | sort | uniq | wc -l
 #Insertions
 bedtools window -u -w 100 -a $CALLSET -b $TRUESET | sort | uniq | wc -l
 ```
-
-### Integrate
-```
-cat graphmap-nanosv/nanosv.chr.del.sort.merge.bed graphmap-sniffles/sniffles.chr.del.sort.merge.bed ngmlr-nanosv/nanosv.chr.del.sort.merge.bed ngmlr-sniffles/sniffles.chr.del.sort.merge.bed minimap2-nanosv/nanosv.chr.del.sort.merge.bed minimap2-sniffles/sniffles.chr.del.sort.merge.bed last-picky/picky.allsv.chr.del.sort.merge.bed > cat.del.bed
-
-cat graphmap-nanosv/nanosv.chr.ins.bp.sort.merge.bed graphmap-sniffles/sniffles.chr.ins.bp.sort.merge.bed ngmlr-nanosv/nanosv.chr.ins.bp.sort.merge.bed ngmlr-sniffles/sniffles.chr.ins.bp.sort.merge.bed minimap2-nanosv/nanosv.chr.ins.bp.sort.merge.bed minimap2-sniffles/sniffles.chr.ins.bp.sort.merge.bed last-picky/picky.allsv.chr.ins.bp.sort.merge.bed > cat.ins.bed
-
-bedtools sort -i cat.del.bed | bedtools merge -c 1 -o count > merged.del.bed
-
-awk '$4>=2{print}' merged.del.bed > consensus2.del.bed
-```
-
-### Calculate length dist for plot
-```
-#del
-for f in `find ../mtsinai/ -name "*del.sort.merge.bed"`; do n=`echo $f | cut -f3 -d'/'`; echo $n", "$f; bedtools intersect -f 0.50 -wa -a $f -b ../mtsinai/NA12878.pass.del.sort.merge.bed | sort | uniq | awk '{print($3-$2)}' > na-$n.true.length; bedtools intersect -f 0.50 -v -wa -b $f -a ../mtsinai/NA12878.pass.del.sort.merge.bed | sort | uniq | awk '{print($3-$2)}' > na-$n.missed.length; bedtools intersect -f 0.50 -v -wa -a $f -b ../mtsinai/NA12878.pass.del.sort.merge.bed | sort | uniq | awk '{print($3-$2)}' > na-$n.false.length; done
-
-#ins
-for f in `find ../mtsinai -name "*ins.len.sort.merge.bed"`; do n=`echo $f | cut -f3 -d'/'`; echo $n", "$f; bedtools window -w 100 -u -a $f -b ../mtsinai/NA12878.pass.ins.len.sort.merge.bed | sort | uniq | awk '{print($3-$2)}' > na-$n.true.length; bedtools window -w 100 -v -b $f -a ../mtsinai/NA12878.pass.ins.len.sort.merge.bed | sort | uniq | awk '{print($3-$2)}' > na-$n.missed.length; bedtools window -w 100 -v -a $f -b ../mtsinai/NA12878.pass.ins.len.sort.merge.bed | sort | uniq | awk '{print($3-$2)}' > na-$n.false.length; done
-```
