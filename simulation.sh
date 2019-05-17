@@ -1,4 +1,6 @@
 # CHM1
+seqtk seq -a train.fastq > train.fasta
+
 NanoSim/src/read_analysis.py -I train.fasta -r b38.fna
 
 NanoSim/src/simulator.py linear -r chm1.fna -c training -o nanosim_50 --seed 11 -n 50000000
