@@ -1,7 +1,3 @@
-# Nanopore workflow
-
-## Running scripts
-```
 # graphmap
 /usr/bin/time -v graphmap align -t 16 -r ref.fna -d reads.fasta -o graphmap.sam
 
@@ -24,4 +20,3 @@ cat ../last.align | /usr/bin/time -v picky.pl callSV --oprefix picky --exclude=c
 
 # sniffles
 /usr/bin/time -v sniffles -t 16 -m ../graphmap.bam -v sniffles.vcf
-```
