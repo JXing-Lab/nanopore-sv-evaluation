@@ -32,7 +32,9 @@ for f in `find . -name '*.chr.*.sort.bed'`; do bedtools merge -i $f -c 1 -o coun
 ```
 #Deletions
 bedtools intersect -f 0.50 -wa -a $CALLSET -b $TRUESET | sort | uniq | wc -l
+bedtools intersect -f 0.50 -wa -b $CALLSET -a $TRUESET | sort | uniq | wc -l
 
 #Insertions
 bedtools window -u -w 100 -a $CALLSET -b $TRUESET | sort | uniq | wc -l
+bedtools window -u -w 100 -b $CALLSET -a $TRUESET | sort | uniq | wc -l
 ```
