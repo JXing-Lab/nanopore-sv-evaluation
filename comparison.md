@@ -7,16 +7,12 @@ for f in `find . -name '*.vcf'`; do awk '($1 !~/^$/)&&($1=="chr1"||$1=="chr2"||$
 
 ### Extract insertions/duplications & filter <100kb && >30kb
 ```
-# len
-for f in `find . -name '*.chr.vcf'`; do awk '$0!~/#/{split($0,a,"SVLEN=");split(a[2],b,";");if($2>0&&($5=="<INS>"||$5=="<DUP>")){if(b[1]<=100000&&b[1]>30){print $1"\t"$2-1"\t"$2+b[1]-1;}}}' $f > ${f%vcf}ins.len.bed; done
-
-#bp
-for f in `find . -name '*.chr.vcf'`; do awk '$0!~/#/{split($0,a,"SVLEN=");split(a[2],b,";");if($2>0&&($5=="<INS>"||$5=="<DUP>")){if(b[1]<=100000&&b[1]>30){print $1"\t"$2-1"\t"$2;}}}' $f > ${f%vcf}ins.bp.bed; done
+for f in `find . -name "*.chr.vcf"`; do awk '$0!~/#/{split($0,a,"SVLEN=");split(a[2],b,";");if($2>0&&($5=="<INS>"||$5=="<DUP>")){if(b[1]<=100000&&b[1]>30){print $1"\t"$2-1"\t"$2-1"\t"b[1];}}}' $f > ${f%vcf}ins.bp.bed; done
 ```
 
 ### Extract deletions & filter <100kb && >30kb
 ```
-for f in `find . -name '*.chr.vcf'`; do awk '$0!~/#/{split($0,a,"END=");split(a[2],b,";");if($2>0&&($5=="<DEL>")){if($2<=b[1]&&b[1]-$2<=100000&&b[1]-$2>30){print $1"\t"$2-1"\t"b[1]-1;}else if($2>b[1]&&$2-b[1]<=100000&&b[1]-$2>30){print $1"\t"b[1]-1"\t"$2-1;}}}' $f > ${f%vcf}del.bed; done
+for f in `find . -name "*.chr.vcf"`; do awk '$0!~/#/{split($0,a,"END=");split(a[2],b,";");if($2>0&&($5=="<DEL>")){if($2<=b[1]&&b[1]-$2<=100000&&b[1]-$2>30){print $1"\t"$2-1"\t"b[1]-1"\t"b[1]-$2;}else if($2>b[1]&&$2-b[1]<=100000&&b[1]-$2>30){print $1"\t"b[1]-1"\t"$2-1"\t"$2-b[1];}}}' $f > ${f%vcf}del.bed; done
 ```
 
 ### Sort
@@ -26,7 +22,7 @@ for f in `find . -name '*.chr.*.bed'`; do bedtools sort -i $f > ${f%bed}sort.bed
 
 ### Merge overlapping regions
 ```
-for f in `find . -name '*.chr.*.sort.bed'`; do bedtools merge -i $f -c 1 -o count > ${f%bed}merge.bed; done
+for f in `find . -name '*.chr.del*.sort.bed'`; do bedtools merge -i $f -c 4 -o collapse > ${f%bed}merge.bed; done
 ```
 
 ### Liftover true sets
