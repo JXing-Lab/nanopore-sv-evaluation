@@ -5,12 +5,12 @@
 for f in `find . -name '*.vcf'`; do awk '($1 !~/^$/)&&($1=="chr1"||$1=="chr2"||$1=="chr3"||$1=="chr4"||$1=="chr5"||$1=="chr6"||$1=="chr7"||$1=="chr8"||$1=="chr9"||$1=="chr10"||$1=="chr11"||$1=="chr12"||$1=="chr13"||$1=="chr14"||$1=="chr15"||$1=="chr16"||$1=="chr17"||$1=="chr18"||$1=="chr19"||$1=="chr20"||$1=="chr21"||$1=="chr22"||$1=="chrX"||$1=="chrY"||$1~/^##/)&&($3 !="gap"){print$0}' $f > ${f%vcf}chr.vcf; done
 ```
 
-### Extract insertions/duplications & filter <100kb && >30kb
+### Extract insertions/duplications & filter >30bp && <=100kb
 ```
 for f in `find . -name "*.chr.vcf"`; do awk '$0!~/#/{split($0,a,"SVLEN=");split(a[2],b,";");if($2>0&&($5=="<INS>"||$5=="<DUP>")){if(b[1]<=100000&&b[1]>30){print $1"\t"$2-1"\t"$2-1"\t"b[1];}}}' $f > ${f%vcf}ins.bp.bed; done
 ```
 
-### Extract deletions & filter <100kb && >30kb
+### Extract deletions & filter >30bp && <=100kb
 ```
 for f in `find . -name "*.chr.vcf"`; do awk '$0!~/#/{split($0,a,"END=");split(a[2],b,";");if($2>0&&($5=="<DEL>")){if($2<=b[1]&&b[1]-$2<=100000&&b[1]-$2>30){print $1"\t"$2-1"\t"b[1]-1"\t"b[1]-$2;}else if($2>b[1]&&$2-b[1]<=100000&&b[1]-$2>30){print $1"\t"b[1]-1"\t"$2-1"\t"$2-b[1];}}}' $f > ${f%vcf}del.bed; done
 ```
