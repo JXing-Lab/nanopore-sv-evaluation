@@ -1,4 +1,7 @@
 # CHM1 simulation
+
+# the training nanopore data nanopore_03262018.fastq.gz can be downloaded at: https://doi.org/doi:10.7282/t3-zw94-js46.
+ 
 # create training fasta
 seqtk seq -a nanopore_03262018.fastq > train.fasta
 
