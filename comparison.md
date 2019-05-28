@@ -37,28 +37,28 @@ liftOver NA12878.sort.bed hg19ToHg38.over.chain NA12878_hg38.sort.bed unmapped.b
 # calculating precision using callset overlaps with trueset represented by callset
 OVERLAP_CALL_DEL=`bedtools intersect -f 0.50 -wa -a $CALLSET_DEL -b $TRUESET_DEL | sort | uniq | wc -l | awk '{print $1}'`
 TOTAL_CALL_DEL=`wc -l $CALLSET_DEL | awk '{print $1}'`
-PRE_DEL=echo "scale=4; $OVERLAP_CALL_DEL/TOTAL_CALL_DEL" | bc
+PRE_DEL=`echo "scale=4; $OVERLAP_CALL_DEL/TOTAL_CALL_DEL" | bc`
 
 # calculating sensitivity using trueset overlaps with callset represented by trueset
 OVERLAP_TRUE_DEL=`bedtools intersect -f 0.50 -wa -b $CALLSET_DEL -a $TRUESET_DEL | sort | uniq | wc -l | awk '{print $1}'`
 TOTAL_TRUE_DEL=`wc -l $TRUESET_DEL | awk '{print $1}'`
-SEN_DEL=echo "scale=4; $OVERLAP_TRUE_DEL/TOTAL_TRUE_DEL" | bc
+SEN_DEL=`echo "scale=4; $OVERLAP_TRUE_DEL/TOTAL_TRUE_DEL" | bc`
 
-F1_DEL=echo "scale=4; 2*($PRE_DEL*$SEN_DEL)/($PRE_DEL+$SEN_DEL)" | bc
+F1_DEL=`echo "scale=4; 2*($PRE_DEL*$SEN_DEL)/($PRE_DEL+$SEN_DEL)" | bc`
 
 # Insertions
 
 # calculating precision using callset overlaps with trueset represented by callset
 OVERLAP_CALL_INS=`bedtools window -u -w 100 -a $CALLSET_INS -b $TRUESET_INS | sort | uniq | wc -l | awk '{print $1}'`
 TOTAL_CALL_INS=`wc -l $CALLSET_INS | awk '{print $1}'`
-PRE_INS=echo "scale=4; $OVERLAP_CALL_INS/TOTAL_CALL_INS" | bc
+PRE_INS=`echo "scale=4; $OVERLAP_CALL_INS/TOTAL_CALL_INS" | bc`
 
 # calculating sensitivity using trueset overlaps with callset represented by trueset
 OVERLAP_TRUE_INS=`bedtools window -u -w 100 -b $CALLSET_INS -a $TRUESET_INS | sort | uniq | wc -l | awk '{print $1}'`
 TOTAL_TRUE_INS=`wc -l $TRUESET_INS | awk '{print $1}'`
-SEN_INS=echo "scale=4; $OVERLAP_TRUE_INS/TOTAL_TRUE_INS" | bc
+SEN_INS=`echo "scale=4; $OVERLAP_TRUE_INS/TOTAL_TRUE_INS" | bc`
 
-F1_INS=echo "scale=4; 2*($PRE_INS*$SEN_INS)/($PRE_INS+$SEN_INS)" | bc
+F1_INS=`echo "scale=4; 2*($PRE_INS*$SEN_INS)/($PRE_INS+$SEN_INS)" | bc`
 ```
 
 ### Venn diagram
