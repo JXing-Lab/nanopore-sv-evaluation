@@ -1,4 +1,4 @@
-### This is a singularity container that includes all the pipelines and the random forest classifier.
+This is a singularity container that includes all the pipelines and the random forest classifier.
 
 ### Usage:
 ```
