@@ -43,3 +43,8 @@ singularity run -B /nfs:/nfs nanopore-pipeline predict my_model.joblib INS predi
 ```
 singularity run -B /nfs:/nfs nanopore-pipeline train my_model.joblib INS chm13/ngmlr-nanosv/nanosv.vcf
 ```
+
+##### To run programs with custom options:
+```
+singularity exec -B /nfs:/nfs nanopore-pipeline minimap2 ...
+```
