@@ -1,3 +1,6 @@
+# filtering reads > 500kb (optional)
+awk 'BEGIN {FS = "\t" ; OFS = "\n"} {header = $0 ; getline seq ; getline qheader ; getline qseq ; if (length(seq) <= 500000) {print header, seq, qheader, qseq}}' reads.fastq > reads.filtered.fastq
+
 # graphmap
 /usr/bin/time -v graphmap align -t 16 -r ref.fna -d reads.fasta -o graphmap.sam
 
