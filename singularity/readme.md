@@ -1,4 +1,6 @@
-This is a singularity container that includes all the pipelines and the random forest classifier.
+This is a singularity container that includes all the pipelines and the random forest classifier. The container can be accessed at https://github.com/JXing-Lab/nanopore-sv-evaluation/releases/tag/1.0
+
+The nanosv_bed is only required by the NanoSV caller.
 
 #### Usage:
 ```
