@@ -37,7 +37,7 @@ singularity run -B /nfs:/nfs nanopore-pipeline.sif graphmap-nanosv reads.fastq r
 singularity run -B /nfs:/nfs nanopore-pipeline predict my_model.joblib INS prediction.txt chm13/minimap2-nanosv/nanosv.vcf chm13/graphmap-nanosv/nanosv.vcf
 ```
 
-#### Predicting:
+##### Predicting:
 ```
 singularity run -B /nfs:/nfs nanopore-pipeline train my_model.joblib INS chm13/ngmlr-nanosv/nanosv.vcf
 ```
