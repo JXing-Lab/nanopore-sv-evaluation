@@ -26,8 +26,9 @@ Description:
 ```
 
 ### Example:
-
+```
 singularity run -B /nfs:/nfs nanopore-pipeline.sif graphmap-nanosv reads.fastq ref.fna graphmap-nanosv 16 human_b38.bed
+```
 
 #### Training:
 ```
