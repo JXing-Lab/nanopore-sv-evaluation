@@ -1,6 +1,6 @@
 This is a singularity container that includes all the pipelines and the random forest classifier.
 
-### Usage:
+#### Usage:
 ```
 Pipelines:
 singularity run --bind <PATH:PATH> nanopore-pipeline.sif [pipeline] [fastq] [reference] [output_dir] [threads] [nanosv_bed]
@@ -25,12 +25,14 @@ Description:
 	vcf: Multiple VCF file as input
 ```
 
-### Example:
+#### Example:
+
+##### Pipeline:
 ```
 singularity run -B /nfs:/nfs nanopore-pipeline.sif graphmap-nanosv reads.fastq ref.fna graphmap-nanosv 16 human_b38.bed
 ```
 
-#### Training:
+##### Training:
 ```
 singularity run -B /nfs:/nfs nanopore-pipeline predict my_model.joblib INS prediction.txt chm13/minimap2-nanosv/nanosv.vcf chm13/graphmap-nanosv/nanosv.vcf
 ```
