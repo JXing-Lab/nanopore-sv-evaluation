@@ -1,3 +1,5 @@
+[![DOI](https://zenodo.org/badge/187123521.svg)](https://zenodo.org/badge/latestdoi/187123521)
+
 # nanopore-sv-evaluation
 
 This is the code repository for the paper "Evaluating nanopore sequencing data processing pipelines for structure variation identification".
